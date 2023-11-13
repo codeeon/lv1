@@ -45,32 +45,26 @@ const App = () => {
   };
 
   return (
-    <>
-      <BG>
+    <div className='bgStyle'>
+      <div className='main'>
         <HeaderTop />
         <TodoCreate title={title} text={text} titleChangeHandler={titleChangeHandler} textChangeHandler={textChangeHandler}>
           <CreateBtn clickAddButtonHandler={clickAddButtonHandler}>추가하기</CreateBtn>
         </TodoCreate>
-        <ContentsWorking todo={todo}>
-          <DeleteBtn clickDeleteButtonHandler={clickDeleteButtonHandler} />
-          <DoneBtn clickDoneButtonHandler={clickDoneButtonHandler} />
-        </ContentsWorking>
-        <ContentsDone todo={todo}>
-          <DeleteBtn clickDeleteButtonHandler={clickDeleteButtonHandler} />
-          <DoneBtn clickDoneButtonHandler={clickDoneButtonHandler} />
-        </ContentsDone>
-      </BG>
-    </>
-  );
-};
-
-const BG = (children) => {
-  return (
-    <div className='bgStyle'>
-      <div className='main'>{children}</div>
+        <ContentsWorking todo={todo} clickDeleteButtonHandler={clickDeleteButtonHandler} clickDoneButtonHandler={clickDoneButtonHandler} />
+        <ContentsDone todo={todo} clickDeleteButtonHandler={clickDeleteButtonHandler} clickDoneButtonHandler={clickDoneButtonHandler} />
+      </div>
     </div>
   );
 };
+
+// const BG = (children) => {
+//   return (
+//     <div className='bgStyle'>
+//       <div className='main'>{children}</div>
+//     </div>
+//   );
+// };
 
 const HeaderTop = () => {
   return (
@@ -129,47 +123,53 @@ const DeleteBtn = ({ clickDeleteButtonHandler, task }) => {
   );
 };
 
-const ContentsWorking = ({ todo, children }) => {
-  return (
-    <>
-      <div>
-        <div className='title'>Working..🔥</div>
-        <div className='todos'>
-          {todo
-            .filter((task) => {
-              return task.isDone === false;
-            })
-            .map((task) => {
-              return (
-                <div key={task.id} className='content'>
-                  <div className='contentTitle'>{task.title}</div>
-                  <div>{task.text}</div>
-                  <div className='contentBtns'>{children}</div>
-                </div>
-              );
-            })}
-        </div>
-      </div>
-    </>
-  );
-};
-
-const ContentsDone = ({ todo, children }) => {
+const ContentsWorking = ({ todo, clickDeleteButtonHandler, clickDoneButtonHandler }) => {
   return (
     <div>
-      <div className='title'>Done...!🎉</div>
+      <div className='title'>Working..🔥</div>
       <div className='todos'>
-        {todo.map((task) => {
-          if (task.isDone === true)
+        {todo
+          .filter((task) => {
+            return task.isDone === false;
+          })
+          .map((task) => {
             return (
               <div key={task.id} className='content'>
                 <div className='contentTitle'>{task.title}</div>
                 <div>{task.text}</div>
-                <div className='contentBtns'>{children}</div>
+                <div className='contentBtns'>
+                  <DeleteBtn clickDeleteButtonHandler={clickDeleteButtonHandler} task={task} />
+                  <DoneBtn clickDoneButtonHandler={clickDoneButtonHandler} task={task} />
+                </div>
               </div>
             );
-          return null;
-        })}
+          })}
+      </div>
+    </div>
+  );
+};
+
+const ContentsDone = ({ todo, clickDeleteButtonHandler, clickDoneButtonHandler }) => {
+  return (
+    <div>
+      <div className='title'>Done...!🎉</div>
+      <div className='todos'>
+        {todo
+          .filter((task) => {
+            return task.isDone === true;
+          })
+          .map((task) => {
+            return (
+              <div key={task.id} className='content'>
+                <div className='contentTitle'>{task.title}</div>
+                <div>{task.text}</div>
+                <div className='contentBtns'>
+                  <DeleteBtn clickDeleteButtonHandler={clickDeleteButtonHandler} task={task} />
+                  <DoneBtn clickDoneButtonHandler={clickDoneButtonHandler} task={task} />
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
