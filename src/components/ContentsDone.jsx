@@ -1,14 +1,14 @@
 import DeleteBtn from './btn/DeleteBtn';
 import DoneBtn from './btn/DoneBtn';
 
-const ContentsWorking = ({ todo, clickDeleteButtonHandler, clickDoneButtonHandler }) => {
+const ContentsDone = ({ todo, clickDeleteButtonHandler, clickDoneButtonHandler }) => {
   return (
     <div>
-      <div className='title'>Working..🔥</div>
+      <div className='title'>Done...!🎉</div>
       <div className='todos'>
         {todo
           .filter((task) => {
-            return task.isDone === false;
+            return task.isDone === true;
           })
           .map((task) => {
             return (
@@ -27,4 +27,4 @@ const ContentsWorking = ({ todo, clickDeleteButtonHandler, clickDoneButtonHandle
   );
 };
 
-export default ContentsWorking;
+export default ContentsDone;
