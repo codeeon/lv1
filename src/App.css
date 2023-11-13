@@ -43,6 +43,7 @@
   border: none;
   border-radius: 15px;
   margin-left: 10px;
+  padding-left: 10px;
 }
 .createBtn {
   background-color: #117374;
@@ -58,10 +59,13 @@
   font-size: 25px;
   margin-left: 30px;
 }
+.todos {
+  display: flex;
+}
 .content {
   width: 270px;
   height: 150px;
-  margin: 20px 30px;
+  margin: 20px 0px 20px 30px;
   border: solid 4px #117374;
   border-radius: 10px;
   padding: 20px;
